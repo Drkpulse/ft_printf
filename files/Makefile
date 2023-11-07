@@ -6,29 +6,30 @@
 #    By: joseferr <joseferr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 11:42:12 by joseferr          #+#    #+#              #
-#    Updated: 2023/11/03 17:51:34 by joseferr         ###   ########.fr        #
+#    Updated: 2023/11/07 14:57:16 by joseferr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-SRCS = ft_isalpha.c
-OBJS = $(SRCS:.c=.o)
+
+CC = cc
+
+CFLAGS = -Wall -Werror -Wextra
+
+SRCS = ft_printf.o
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+$(NAME): $(SRCS)
+	ar rc $(NAME) $(SRCS)
 
 clean:
-	rm -rf $(OBJS) $(BONUS_OBJS)
+	$(RM) $(SRCS)
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
-
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS) $(BONUS_SRCS)
-	gcc -nostartfiles -shared -o libft.so $(OBJS) $(BONUS_OBJS)
