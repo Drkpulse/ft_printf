@@ -111,3 +111,23 @@ int	ft_printf(const char *text, ...)
 	va_end(args);
 	return (data.count);
 }
+
+int main()
+{
+	char *frs = "abc123";
+	char *ptr;
+	int a;
+
+	a = 42;
+
+	printf("Decimal: %d \n", a);
+	ft_printf("Decimal: %d \n", a);
+	printf("String: %s \n", frs);
+	ft_printf("String: %s \n", frs);
+	printf("Inteiro: %i \n", a);
+	ft_printf("Inteiro: %i \n", a);
+	printf("hexdecimal: %x \n", a);
+	ft_printf("hexdecimal: %x \n", a);
+	printf("Hexdecimal: %X \n", a);
+	ft_printf("Hexdecimal: %X \n", a);
+}
