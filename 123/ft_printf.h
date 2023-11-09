@@ -18,12 +18,12 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_list
 {
 	size_t			count;
 	char			*base;
-	int unsigned	nbase;
 	long			nbr;
 	char			flag;
 

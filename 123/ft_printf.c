@@ -33,7 +33,6 @@ void	ft_put(char c, char *str, t_info *data, int flag)
 
 void	ft_nbrhex(unsigned long nb, t_info *data)
 {
-	data->nbase = 16;
 	if (data->flag == 'x' || data->flag == 'p')
 	{
 		if (data->flag == 'p' && nb == (unsigned long)data->nbr)
@@ -42,24 +41,22 @@ void	ft_nbrhex(unsigned long nb, t_info *data)
 	}
 	if (data->flag == 'X')
 		data->base = "0123456789ABCDEF";
-	if (nb >= data->nbase)
-		ft_nbrhex(nb / data->nbase, data);
-	ft_put(data->base[nb % data->nbase], "a", data, 0);
+	if (nb >= 16)
+		ft_nbrhex(nb / 16, data);
+	ft_put(data->base[nb % 16], "a", data, 0);
 }
 
-void	ft_nbr(unsigned long nb, t_info *data)
+void	ft_nbr(long nb, t_info *data)
 {
-	data->nbase = 10;
 	data->base = "0123456789";
-	if (data->nbr < 0)
+	if (nb < 0)
 	{
 		ft_put('-', "a", data, 0);
-		data->nbr *= -1;
-		nb = data->nbr;
+		nb *= -1;
 	}
-	if (nb >= data->nbase)
-		ft_nbr(nb / data->nbase, data);
-	ft_put(data->base[nb % data->nbase], "a", data, 0);
+	if (nb >= 10)
+		ft_nbr(nb / 10, data);
+	ft_put(data->base[nb % 10], "a", data, 0);
 }
 
 void	ft_conversions(va_list arg, t_info *data)
@@ -92,7 +89,6 @@ int	ft_printf(const char *text, ...)
 	t_info	data;
 
 	va_start(args, text);
-	data.nbase = 16;
 	data.count = 0;
 	data.nbr = 0;
 	while (*text)
@@ -111,23 +107,38 @@ int	ft_printf(const char *text, ...)
 	va_end(args);
 	return (data.count);
 }
-
+/*
 int main()
 {
+	char b = 'a';
 	char *frs = "abc123";
-	char *ptr;
+	char **ptr;
 	int a;
 
-	a = 42;
+	ptr = &frs;
+	a = -42;
 
-	printf("Decimal: %d \n", a);
+	printf("ODecimal: %d \n", a);
 	ft_printf("Decimal: %d \n", a);
-	printf("String: %s \n", frs);
+	printf("ODecimal_MAX: %d \n", INT_MAX);
+	ft_printf("Decimal_MAX: %d \n", INT_MAX);
+	printf("ODecimal_MIN: %d \n", INT_MIN);
+	ft_printf("Decimal_MIN: %d \n", INT_MIN);
+	printf("OString: %s \n", frs);
 	ft_printf("String: %s \n", frs);
-	printf("Inteiro: %i \n", a);
+	printf("OInteiro: %i \n", a);
 	ft_printf("Inteiro: %i \n", a);
-	printf("hexdecimal: %x \n", a);
+	printf("Ohexdecimal: %x \n", a);
 	ft_printf("hexdecimal: %x \n", a);
-	printf("Hexdecimal: %X \n", a);
+	printf("OHexdecimal: %X \n", a);
 	ft_printf("Hexdecimal: %X \n", a);
+	printf("OCharacter: %c \n", b);
+	ft_printf("Character: %c \n", b);
+	printf("OUnsigned: %u \n", a);
+	ft_printf("Unsigned: %u \n", a);
+	printf("OPercentagem: %% \n");
+	ft_printf("Percentagem: %% \n");
+	printf("OPointer: %p \n", ptr);
+	ft_printf("Pointer %p \n", ptr);
 }
+*/
