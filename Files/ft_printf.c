@@ -93,14 +93,17 @@ int	ft_printf(const char *text, ...)
 	data.nbr = 0;
 	while (*text)
 	{
-		if (*text == '%' && *(text + 1) == '%')
-			ft_put(*(++text), "a", &data, 0);
-		else if (*text == '%' && *(text + 1) != '%')
+		if (*text == '%')
 		{
-			data.flag = *++text;
-			ft_conversions(args, &data);
+			if (*(text + 1) == '%')
+				ft_put(*(++text), "a", &data, 0);
+			else
+			{
+				data.flag = *++text;
+				ft_conversions(args, &data);
+			}
 		}
-		else if (*text != '%')
+		else
 			ft_put(*text, "a", &data, 0);
 		text++;
 	}
